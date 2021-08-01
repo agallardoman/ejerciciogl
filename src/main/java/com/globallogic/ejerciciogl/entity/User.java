@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -34,7 +35,13 @@ public class User implements Serializable {
 
     public UserDto toDTO() {
         UserDto userDto = new UserDto();
-
+        userDto.setId(this.getId());
+        userDto.setName(this.getName());
+        userDto.setPassword(this.getPassword());
+        userDto.setEmail(this.getEmail());
+        userDto.setPhones(this.getPhones().stream()
+                .map(Phone::toDTO)
+                .collect(Collectors.toSet()));
         return userDto;
 
     }

@@ -30,6 +30,10 @@ public class Phone implements Serializable {
 
     public PhonesDto toDTO(){
         PhonesDto phonesDto = new PhonesDto();
+        phonesDto.setId(this.getId());
+        phonesDto.setNumber(this.getNumber());
+        phonesDto.setCitycode(this.getCitycod());
+        phonesDto.setContrycode(this.getContrycode());
         return phonesDto;
     }
 

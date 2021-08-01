@@ -9,7 +9,7 @@ import lombok.Setter;
 public class PhonesDto {
     
     private Long id;
-    private int number;
-    private int citycode;
-    private int contrycode;
+    private Long number;
+    private Long citycode;
+    private Long contrycode;
 }
