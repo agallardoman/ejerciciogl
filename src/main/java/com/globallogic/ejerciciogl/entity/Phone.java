@@ -7,34 +7,23 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="phone")
 public class Phone implements Serializable {
-
+    private static final long serialVersionUID= 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Long number;
 
-    private Long citycod;
+    private Long citycode;
 
     private Long contrycode;
 
     @ManyToOne
     private User user;
-
-    public PhonesDto toDTO(){
-        PhonesDto phonesDto = new PhonesDto();
-        phonesDto.setId(this.getId());
-        phonesDto.setNumber(this.getNumber());
-        phonesDto.setCitycode(this.getCitycod());
-        phonesDto.setContrycode(this.getContrycode());
-        return phonesDto;
-    }
 
 }

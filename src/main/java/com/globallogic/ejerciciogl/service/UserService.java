@@ -1,11 +1,13 @@
 package com.globallogic.ejerciciogl.service;
 
 import com.globallogic.ejerciciogl.dto.UserDto;
+import com.globallogic.ejerciciogl.entity.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -14,7 +16,5 @@ public interface UserService {
     List<UserDto> findAll();
     UserDto findById(Long id);
     void deleteById(Long id);
-    Map<String, Object> getDetails(String email);
-    UserDto findByEmail(String email);
 
 }

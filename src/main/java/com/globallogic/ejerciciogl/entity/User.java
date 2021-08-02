@@ -6,19 +6,19 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
 @Entity
-@Table(name="users")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements Serializable {
-
-
+    private static final long serialVersionUID= 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,22 +28,24 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
 
-    private String password;
+    private String token;
 
-    @OneToMany
+    private LocalDate created;
+
+    private LocalDate modified;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Phone> phones = new HashSet<>();
 
-    public UserDto toDTO() {
-        UserDto userDto = new UserDto();
-        userDto.setId(this.getId());
-        userDto.setName(this.getName());
-        userDto.setPassword(this.getPassword());
-        userDto.setEmail(this.getEmail());
-        userDto.setPhones(this.getPhones().stream()
-                .map(Phone::toDTO)
-                .collect(Collectors.toSet()));
-        return userDto;
-
+    @PrePersist
+    private void prePersist(){
+        this.created=LocalDate.now();
     }
+
+    @PreUpdate
+    private void preUpdate(){
+        this.modified=LocalDate.now();
+    }
+
 
 }
