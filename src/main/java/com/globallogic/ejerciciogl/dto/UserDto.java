@@ -20,7 +20,7 @@ public class UserDto {
     private String token;
     private LocalDate created;
     private LocalDate modified;
+    private boolean isActive;
     private Set<PhonesDto> phones = new HashSet<>();
-
 
 }

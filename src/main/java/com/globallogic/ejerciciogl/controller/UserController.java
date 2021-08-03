@@ -2,34 +2,28 @@ package com.globallogic.ejerciciogl.controller;
 
 import com.globallogic.ejerciciogl.dto.UserDto;
 import com.globallogic.ejerciciogl.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
 
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> users() {
-        List<UserDto> users = userService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/by-id/{id}")
     public ResponseEntity<UserDto> user(@PathVariable("id") Long id) {
-        UserDto user = userService.findById(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/save")
@@ -39,8 +33,7 @@ public class UserController {
 
     @PutMapping("/update")
     public ResponseEntity<UserDto> userUpdate(@RequestBody UserDto userDto) {
-        UserDto userUpdated = userService.update(userDto);
-        return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+        return ResponseEntity.ok(userService.update(userDto));
     }
 
     @DeleteMapping("/delete/{id}")

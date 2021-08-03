@@ -34,6 +34,8 @@ public class User implements Serializable {
 
     private LocalDate modified;
 
+    private boolean isActive = true;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Phone> phones = new HashSet<>();
 
